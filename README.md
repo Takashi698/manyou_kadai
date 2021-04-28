@@ -32,11 +32,13 @@
 6. デプロイ出来ない場合、下記をbuildpackを入れる
 >heroku buildpacks:set heroku/ruby ※デプロイ出来ない場合
 >heroku buildpacks:add --index 1 heroku/nodejs ※デプロイ出来ない場合
-7. Heroku master (or main)にpush
+7. まだデプロイ出来ない場合、下記をplatformを入れる
+>bundle lock --add-platform x86_64-linux ※デプロイ出来ない場合
+8. Heroku master (or main)にpush
 >git push heroku master( or main)
-8. heroku内でマイグレーション
+9. heroku内でマイグレーション
 >heroku run rails db:migrate
-9. herokuサーバーを再起動
+10. herokuサーバーを再起動
 >heroku restart
-10. アクセスして動作確認  
+11. アクセスして動作確認  
 >heroku config 
