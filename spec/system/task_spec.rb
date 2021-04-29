@@ -1,8 +1,8 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, title: 'task', content: 'task') }
-  let!(:task2) { FactoryBot.create(:task, title: 'テスト用タスクタイトル', content: 'task2') }
-  let!(:task3) { FactoryBot.create(:task, title: 'task3', content: 'task3') }
+  let!(:task) { FactoryBot.create(:task, title: 'task', content: 'task', expired_at: '2021-06-03 03:33:33') }
+  let!(:task2) { FactoryBot.create(:task, title: 'task2', content: 'task2', expired_at: '2021-06-06 03:33:33') }
+  let!(:task3) { FactoryBot.create(:task, title: 'task3', content: 'task3', expired_at: '2021-06-16 03:33:33') }
   before do
     visit tasks_path
   end
@@ -20,7 +20,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        expect(page).to have_content 'テスト用タスクタイトル'
+        expect(page).to have_content 'task2'
       end
     end
   end
@@ -31,12 +31,21 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(task_list[0]).to have_content 'task3'
     end
   end
+  context 'タスクが終了期限の降順に並んでいる場合' do
+    it '終了期限の遅いタスクが一番上に表示される' do
+      within '.sort_expired' do
+        click_on '終了期限でソートする'
+      end
+      # binding.pry
+      task_list = all('ul li')
+      expect(task_list[0]).to have_content 'task2'
+    end
+  end
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
-         visit task_path(task2.id)
-         expect(page).to have_content 'テスト用タスクタイトル'
-         expect(page).to have_content '詳細画面'
+         visit task_path(task.id)
+         expect(page).to have_content 'task'
        end
      end
   end
