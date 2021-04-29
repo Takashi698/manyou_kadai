@@ -21,7 +21,12 @@
     <%= form.text_area :content %>
   </div>
 
-   <div class="actions">
+  <div class="field">
+    <%= form.label :expired_at %>
+    <%= form.datetime_select :expired_at %>
+  </div>
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %> 
