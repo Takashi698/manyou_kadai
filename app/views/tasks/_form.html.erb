@@ -25,6 +25,11 @@
     <%= form.label :expired_at %>
     <%= form.datetime_select :expired_at %>
   </div>
+ 
+  <div class="field">
+    <%= form.label :status_id %>
+    <%= form.select :status_id, {'Pending': 1, 'On-Going': 2, 'Completed': 3} %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

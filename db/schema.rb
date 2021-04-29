@@ -10,17 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_113438) do
+ActiveRecord::Schema.define(version: 2021_04_29_153256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "status_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "expired_at", default: "2021-05-29 13:19:30", null: false
+    t.datetime "expired_at", default: -> { "(now() + '1 mon'::interval)" }, null: false
+    t.bigint "status_id", default: 1, null: false
+    t.index ["status_id"], name: "index_tasks_on_status_id"
   end
 
+  add_foreign_key "tasks", "statuses"
 end
