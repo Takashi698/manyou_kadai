@@ -1,27 +1,17 @@
 <h1>Tasks</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<P><%= notice %><p>
+ <ul>
     <% @tasks.each do |task| %>
-      <tr>
+      <li>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task.id), data: { confirm: 'Are you sure to edit' } %></td>
         <td><%= link_to 'Destroy', task_path(task.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      </li>
     <% end %>
-  </tbody>
-</table>
-
+  </ul>
+ </ul>
 <br>
-
-<%= link_to 'New Task', new_task_path %>
+<p><%= link_to 'New Task', new_task_path %></p>
