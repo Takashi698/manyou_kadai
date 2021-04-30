@@ -27,13 +27,15 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        expect(page).to have_content 'task2'
+        task = Task.last
+        task_list = find("#tasks-index_item_title-#{task.id}")
+        expect(task_list).to have_content task.title
       end
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        task_list = all('ul li')
-        expect(task_list[0]).to have_content 'task3'
+        task_list = all('.tasks-index_item_title')
+        expect(task_list.first).to have_content Task.order(created_at: :desc).first.title
       end
     end
     context 'タスクが終了期限の降順に並んでいる場合' do
@@ -41,8 +43,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         within '.sort_expired' do
           click_on '終了期限でソートする'
         end
-        task_list = all('ul li')
-        expect(task_list[0]).to have_content 'task2'
+        task_list = all('.tasks-index_item_title')
+        expect(task_list.first).to have_content Task.order(expired_at: :desc).first.title
       end
     end
     context 'タスクが優先順位の高い順に並んでいる場合' do
@@ -50,8 +52,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         within '.sort_expired' do
           click_on '優先順位でソートする'
         end
-        task_list = all('ul li')
-        expect(task_list[0]).to have_content 'task3'
+        task_list = all('.tasks-index_item_title')
+        expect(task_list.first).to have_content Task.order(priority: :desc).first.title
       end
     end
   end
