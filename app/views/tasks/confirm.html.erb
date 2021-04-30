@@ -3,6 +3,7 @@
   <%= form.hidden_field :content %>
   <%= form.hidden_field :expired_at %>
   <%= form.hidden_field :status %>
+  <%= form.hidden_field :priority %>
 
   <div class="field">
     <p>title</p>
@@ -20,6 +21,10 @@
 
   <div class="field">
     <p><span class="item_name">Status</span> <%= @task.status %></p>
+  </div>
+  
+  <div class="field">
+    <p><span class="item_name">Priority</span> <%= @task.priority %></p>
   </div>
  
   <div class="actions">

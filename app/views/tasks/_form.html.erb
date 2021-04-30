@@ -30,6 +30,11 @@
     <%= form.label :status %>
     <%= form.select :status, Task.statuses.keys %>
   </div>
+ 
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
