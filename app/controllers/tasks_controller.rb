@@ -34,6 +34,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
       if params[:back]
+        render :new
     else
       if @task.save
         redirect_to tasks_path, notice: "Task was successfully created."

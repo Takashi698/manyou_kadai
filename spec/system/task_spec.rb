@@ -1,8 +1,8 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, title: 'task', content: 'task', expired_at: '2021-03-03 03:33:33', status: 1, priority: 1) }
-  let!(:task2) { FactoryBot.create(:task, title: 'task2', content: 'task2', expired_at: '2021-03-15 03:33:33', status: 2, priority: 2) }
-  let!(:task3) { FactoryBot.create(:task, title: 'task3', content: 'task3', expired_at: '2021-03-21 03:33:33', status: 3, priority: 3) }
+  let!(:task) { FactoryBot.create(:task, title: 'task', content: 'task', expired_at: '2021-05-1 03:33:00', status: 1, priority: 1) }
+  let!(:task2) { FactoryBot.create(:task, title: 'task2', content: 'task2', expired_at: '2021-05-20 03:33:00', status: 2, priority: 2) }
+  let!(:task3) { FactoryBot.create(:task, title: 'task3', content: 'task3', expired_at: '2021-05-10 03:33:00', status: 3, priority: 3) }
   before do
     visit tasks_path
   end
@@ -17,10 +17,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         find("#task_expired_at_3i").find("option[value='3']").select_option
         find("#task_expired_at_4i").find("option[value='10']").select_option
         find("#task_expired_at_5i").find("option[value='15']").select_option
-        find("#task_status").find("option[value='on_going']").select_option
+        find("#task_status").find("option[value='着手']").select_option
         click_on '登録'
         expect(page).to have_content 'task_name'
-        expect(page).to have_content 'on_going'
+        expect(page).to have_content '着手'
       end
     end
   end
@@ -73,10 +73,10 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルとステータスの両方で検索した場合' do
       it '該当のタスクが表示される' do
         fill_in "search_title", with: "2"
-        find("#search_status").find("option[value='on_going']").select_option
+        find("#search_status").find("option[value='着手']").select_option
         click_on 'search'
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'on_going'
+        expect(page).to have_content '着手'
       end
     end
  end
