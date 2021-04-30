@@ -27,8 +27,8 @@
   </div>
  
   <div class="field">
-    <%= form.label :status_id %>
-    <%= form.select :status_id, {'Pending': 1, 'On-Going': 2, 'Completed': 3} %>
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys %>
   </div>
 
   <div class="actions">

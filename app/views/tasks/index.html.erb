@@ -11,7 +11,7 @@
     <%= form.label :search_title, "Task_Name" %>
     <%= form.text_field :search_title, placeholder: "Seach by Task Name" %>
     <%= form.label :search_status %>
-    <%= form.select :search_status, {'Pending': 1, 'On-Going': 2, 'Completed': 3}, { include_blank: 'Please select'} %>
+    <%= form.select :search_status, options_for_select(Task.status_lists), { include_blank: 'Please select'} %>
     <%= form.submit "Search", name: "search" %>
   <% end %>
 </div>
@@ -23,7 +23,7 @@
       <p><span class="item_name">Content</span> <%= task.content %></p>
       <p><span class="item_name">Submission_Date</span> <%= l task.created_at, format: :long %></p>
       <p><span class="item_name">Expiration_Date</span> <%= l task.expired_at, format: :long  %></p>
-      <p><span class="item_name">Status</span> <%= task.status.status_name  %></p>
+      <p><span class="item_name">Status</span> <%= task.status %></p>
       <p class="btns">
         <%= link_to 'Show', task_path(task.id) %>
         <%= link_to 'Edit', edit_task_path(task.id), data: { confirm: 'Are you sure to edit?' } %>

@@ -5,12 +5,14 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       @tasks = Task.order(expired_at: :desc)
     elsif
-      if params[:search_title] != "" && params[:search_status] != ""
-        @tasks = Task.where("title LIKE ?", "%#{params[:search_title]}%").where(status_id: params[:search_status])
-      elsif params[:search_title] != "" && params[:search_status] == ""
+      if params[:search_title].present? && params[:search_status].present?
+        @tasks = Task.where("title LIKE ?", "%#{params[:search_title]}%").where(status_id: params[:search_status].to_i)
+      elsif params[:search_title].present?  && params[:search_status].blank?
         @tasks = Task.where("title LIKE ?", "%#{params[:search_title]}%")
-      elsif  params[:search_title] == "" && params[:search_status] != ""
-        @tasks = Task.where(status_id: params[:search_status])
+      elsif  params[:search_title] == "" && params[:search_status].present
+        @tasks = Task.where(status_id: params[:search_status].to_i)
+      else
+        @tasks = Task.order(created_at: :desc)
       end
     else
       @tasks = Task.order(created_at: :desc)
@@ -63,6 +65,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :expired_at, :status_id)
+    params.require(:task).permit(:title, :content, :expired_at, :status)
   end
 end

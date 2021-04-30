@@ -2,7 +2,7 @@
   <%= form.hidden_field :title %>
   <%= form.hidden_field :content %>
   <%= form.hidden_field :expired_at %>
-  <%= form.hidden_field :status_id %>
+  <%= form.hidden_field :status %>
 
   <div class="field">
     <p>title</p>
@@ -19,7 +19,7 @@
   </div>
 
   <div class="field">
-    <p><span class="item_name">Status</span> <%= @task.status.status_name %></p>
+    <p><span class="item_name">Status</span> <%= @task.status %></p>
   </div>
  
   <div class="actions">
