@@ -3,21 +3,21 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_expired]
-      @tasks = Task.order(expired_at: :desc)
+      @tasks = Task.order(expired_at: :desc).page(params[:page]).per(5)
     elsif params[:sort_priority]
-      @tasks = Task.order(priority: :desc)
-    elsif
+      @tasks = Task.order(priority: :desc).page(params[:page]).per(5)
+    elsif params[:search]
       if params[:search_title].present? && params[:search_status].present?
-        @tasks = Task.where("title LIKE ?", "%#{params[:search_title]}%").where(status_id: params[:search_status].to_i)
-      elsif params[:search_title].present?  && params[:search_status].blank?
-        @tasks = Task.where("title LIKE ?", "%#{params[:search_title]}%")
-      elsif  params[:search_title] == "" && params[:search_status].present
-        @tasks = Task.where(status_id: params[:search_status].to_i)
+        @tasks = Task.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(5)
+      elsif params[:search_title].present?
+        @tasks = Task.search_title(params[:search_title]).page(params[:page]).per(5)
+      elsif params[:search_status].present?
+        @tasks = Task.search_status(params[:search_status]).page(params[:page]).per(5)
       else
-        @tasks = Task.order(created_at: :desc)
+        @tasks = Task.order(created_at: :desc).page(params[:page]).per(5)
       end
     else
-      @tasks = Task.order(created_at: :desc)
+      @tasks = Task.order(created_at: :desc).page(params[:page]).per(5)
     end
   end
 
