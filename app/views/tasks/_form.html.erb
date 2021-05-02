@@ -1,3 +1,4 @@
+<section class="form_block">
 <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
@@ -21,8 +22,24 @@
     <%= form.text_area :content %>
   </div>
 
-   <div class="actions">
+  <div class="field">
+    <%= form.label :expired_at %>
+    <%= form.datetime_select :expired_at %>
+  </div>
+ 
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys %>
+  </div>
+ 
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys %>
+  </div>
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %> 
-<p><%= link_to "back to top", tasks_path %></p>
+<p class="goto_back"><%= link_to "back to top", tasks_path %></p>
+</section>
