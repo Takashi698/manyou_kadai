@@ -1,8 +1,8 @@
 <article class="tasks_index">
   <h1>Tasks_list</h1>
-  <%= if notice %>
+  <% if notice %>
     <p class="alert alert-info"><%= notice %></p>
-  <%= end %>
+  <% end %>
 
   <div class="task_nav">
     <p class="sort_expired flex">
@@ -17,7 +17,7 @@
         <%= form.label :search_status %>
         <%= form.select :search_status, Task.statuses.keys, { include_blank: 'Please select'} %>
         <%= form.submit "Search", name: "search" %>
-      <%= end %>
+      <% end %>
     </div>
   </div>
 
@@ -83,6 +83,5 @@
   <div class="pagination_block">
     <%= paginate @tasks %>
   </div>
-   <br>
-  <p class="task_new"><%= Link_to 'New_Task', new_task_path %></p>
+  <p class="task_new"><%= link_to 'New_Task', new_task_path %></p>
 </article>

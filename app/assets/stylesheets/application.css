@@ -17,43 +17,50 @@
 
  
  
- *{
-  margin:0 !important;
-  padding:0 !important;
+ html {
+   font-size: 66%;
+ }
+ body {
+   font-size: 3rem;
+   font-family: sans-serif;
+   line-height: 3;
+   color: #070000;
+   background: #b90909;
+ }
+
+ .tasklogo {
+   font-family: 'Audiowide', Tahoma;
+ }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+article {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
-.wrapper{
-  min-height: 100vh;
-  position: relative;/*←相対位置*/
-  padding-bottom: 190px;/*←footerの高さ*/
-  box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+
+header {
+  background: #42ce9f;
+  color: #fff;
+}
+header .container {
+  padding: 20px 10px;
 }
 
-.main_body{
-  padding: 10px;
-  margin-left: 20px !important;
+footer {
+  background: #42ce9f;
+  color: #fff;
 }
-
-.img_hed {
-  width : 100vw ;
+footer .date {
+  text-align: center;
 }
-
-.img_foot {
-  width : 100vw ;
-  position: absolute;
-  bottom: 0; /*下に固定*/
+footer .container {
+  padding: 20px 10px;
 }
-
-.style1{
-  border-top: 1px solid floralwhite ;
-  border-width: 1px ;
-}
-
-.go_center {
-  text-align: center ;
-  margin : 0 auto
-}
-
-.go_center_table {
-  margin : 0 auto !important; 
+footer .copyright {
+  text-align: center;
 }
