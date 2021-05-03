@@ -8,7 +8,10 @@
 name = "edo"
 email = "a@a.com"
 password = "111111"
-User.create!(name: name,
-             email: email,
-             password_digest: password,
+User.create!(name: "admin",
+             email: "a@a.com",
+             password_digest: "111111",
+             password: "111111",
+             password_confirmation: "111111",
+             admin: true
              )
