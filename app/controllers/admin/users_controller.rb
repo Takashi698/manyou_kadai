@@ -35,8 +35,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice:"User was successfully destroyed."
+    if @user.destroy
+      redirect_to admin_users_path, notice:"User was successfully destroyed."
+    else
+      redirect_to admin_users_path, notice:"You can't destroy User cuz you're the only Admin User "
+    end
   end
 
   private
@@ -50,7 +53,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def if_not_admin
-    redirect_to root_path unless current_user.admin == "Admin"
+    redirect_to root_path, notice:"You are not permitted to access coz you are not the authorized admin user" unless current_user.admin?
   end
 end
 
