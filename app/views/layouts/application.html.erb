@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ManyouKadai</title>
+    <title>Manyou-Kadai</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,8 +13,22 @@
   <body>
     <header>  
       <div class="container">
-        <h1 class = "tasklogo"><%= link_to 'Task Application', tasks_path %></h1>  
+        <div class="flex">
+        <h1 class="tasklogo item"><%= link_to 'TaskApp', tasks_path %></h1>
+        <div class="btns item">
+          <% if logged_in? %>
+            <% if admin? %>
+              <%= link_to "管理画面", admin_users_path %>
+            <% end %>
+            <%= link_to "プロフィール", user_path(current_user.id) %>
+            <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "新規登録", new_user_path %>
+            <%= link_to "ログイン", new_session_path %>
+          <% end %>
+        </div>
       </div>
+    </div>
     </header>
     <div class="container">
       <%= yield %>
@@ -22,7 +36,7 @@
     <footer>
       <div class="container">
         <p class="date"><%= date = Time.new %></p>
-        <p class="copyright">T.Oka All Rights Reseerved.</p>
+        <p class="copyright">T.Oka All Rights Reserved.</p>
       </div>  
     </footer>
   </body>

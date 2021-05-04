@@ -4,21 +4,21 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_expired]
-      @tasks = Task.order(expired_at: :desc).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(expired_at: :desc).page(params[:page]).per(PER)
     elsif params[:sort_priority]
-      @tasks = Task.order(priority: :desc).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(priority: :desc).page(params[:page]).per(PER)
     elsif params[:search]
       if params[:search_title].present? && params[:search_status].present?
-        @tasks = Task.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
       elsif params[:search_title].present?
-        @tasks = Task.search_title(params[:search_title]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).page(params[:page]).per(PER)
       elsif params[:search_status].present?
-        @tasks = Task.search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
       else
-        @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
       end
     else
-      @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
     end
   end
 
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
       if params[:back]
         render :new
     else
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task.params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 
@@ -69,6 +69,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :expired_at, :status, :priority)
+    params.require(:task).permit(:title, :content, :expired_at, :status, :priority, :user_id)
   end
 end
