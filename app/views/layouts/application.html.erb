@@ -14,17 +14,17 @@
     <header>  
       <div class="container">
         <div class="flex">
-          <h1 class="tasklogo item"><%= link_to 'Task_Application', tasks_path %></h1>
-          <div class="btns item">
-            <% if logged_in? %>
-              <% if admin? %>
-                <%= link_to "Admin_Management_Screen", admin_users_path %>
-              <% end %>
-              <%= link_to "Profile", user_path(current_user.id) %>
-              <%= link_to "Log_out", session_path(current_user.id), method: :delete %>
-            <% else %>
-              <%= link_to "Sign_up", new_user_path %>
-              <%= link_to "Log_in", new_session_path %>
+        <h1 class="tasklogo item"><%= link_to 'TaskApp', tasks_path %></h1>
+        <div class="btns item">
+          <% if logged_in? %>
+            <% if admin? %>
+              <%= link_to "管理画面", admin_users_path %>
+            <% end %>
+            <%= link_to "プロフィール", user_path(current_user.id) %>
+            <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "新規登録", new_user_path %>
+            <%= link_to "ログイン", new_session_path %>
           <% end %>
         </div>
       </div>
@@ -36,7 +36,7 @@
     <footer>
       <div class="container">
         <p class="date"><%= date = Time.new %></p>
-        <p class="copyright">T.Oka All Rights Reseerved.</p>
+        <p class="copyright">T.Oka All Rights Reserved.</p>
       </div>  
     </footer>
   </body>

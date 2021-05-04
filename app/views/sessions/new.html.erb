@@ -2,21 +2,20 @@
   <% flash.each do |key, value| %>
     <%= content_tag(:p, value, class: "#{key} alert alert-info") %>
   <% end %>
-
-  <h1>Log in</h1>
+  <h2>ログイン</h2>
   <section class="form_block">
     <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
       <div class="field">
-        <%= f.label :email %>
+        <%= f.label :email, "メールアドレス" %>
         <%= f.email_field :email %>
       </div>
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :password, "パスワード" %>
         <%= f.password_field :password %>
       </div>
-      <div class="action">
-        <%= f.submit "Log in" %>
+      <div class="actions">
+        <%= f.submit "ログイン" %>
       </div>
     <% end %>
   </section>
-</article>  
+</article>

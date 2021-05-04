@@ -1,9 +1,16 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, title: 'task', content: 'task', expired_at: '2021-05-1 03:33:00', status: 1, priority: 1) }
-  let!(:task2) { FactoryBot.create(:task, title: 'task2', content: 'task2', expired_at: '2021-05-20 03:33:00', status: 2, priority: 2) }
-  let!(:task3) { FactoryBot.create(:task, title: 'task3', content: 'task3', expired_at: '2021-05-10 03:33:00', status: 3, priority: 3) }
+  let(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create(:task, user_id: user.id) }
+  let!(:task2) { FactoryBot.create(:task2, user_id: user.id) }
+  let!(:task3) { FactoryBot.create(:task3, user_id: user.id) }
   before do
+    visit new_session_path
+    fill_in "メールアドレス", with: "user1@example.com"
+    fill_in "パスワード", with: "password1"
+    within '.actions' do
+      click_on 'ログイン'
+    end
     visit tasks_path
   end
   describe '新規作成機能' do
