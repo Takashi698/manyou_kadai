@@ -18,7 +18,7 @@ class TasksController < ApplicationController
         @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
       end
     else
-      @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
     end
   end
 

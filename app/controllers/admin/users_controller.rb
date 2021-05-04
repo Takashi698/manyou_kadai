@@ -1,9 +1,10 @@
 class Admin::UsersController < ApplicationController
   before_action :if_not_admin
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  PER = 3
 
   def index
-    @users = User.select(:id, :name).page(params[:page]).per(5)
+    @users = User.select(:id, :name).page(params[:page]).per(PER)
   end
 
   def new
@@ -31,7 +32,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @tasks = @user.tasks.page(params[:page]).per(5)
+    @tasks = @user.tasks.page(params[:page]).per(PER)
   end
 
   def destroy
@@ -48,12 +49,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation, :admin)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
   def if_not_admin
-    redirect_to root_path, notice:"You are not permitted to access coz you are not the authorized admin user" unless current_user.admin?
+    redirect_to root_path, notice:"You are not permitted to access coz you are not the authorized admin user" unless admin?
   end
 end
 
