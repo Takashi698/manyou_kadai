@@ -8,12 +8,20 @@ class TasksController < ApplicationController
     elsif params[:sort_priority]
       @tasks = current_user.tasks.order(priority: :desc).page(params[:page]).per(PER)
     elsif params[:search]
-      if params[:search_title].present? && params[:search_status].present?
+      if params[:search_title].present? && params[:search_status].present? && params[:search_label].present?
+        @tasks = current_user.tasks.search_title(params[:search_title]).search_status(params[:search_status]).search_label(params[:search_label]).page(params[:page]).per(5)
+      elsif params[:search_title].present? && params[:search_status].present?
         @tasks = current_user.tasks.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
+      elsif params[:search_status].present? && params[:search_label].present?
+        @tasks = current_user.tasks.search_status(params[:search_status]).search_label(params[:search_label]).page(params[:page]).per(PER)
+      elsif params[:search_title].present? && params[:search_label].present?
+        @tasks = current_user.tasks.search_title(params[:search_title]).search_label(params[:search_label]).page(params[:page]).per(PER)
       elsif params[:search_title].present?
         @tasks = current_user.tasks.search_title(params[:search_title]).page(params[:page]).per(PER)
       elsif params[:search_status].present?
         @tasks = current_user.tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
+      elsif params[:search_label].present?
+        @tasks = current_user.tasks.search_label(params[:search_label]).page(params[:page]).per(PER)
       else
         @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
       end

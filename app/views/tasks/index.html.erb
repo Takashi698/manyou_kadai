@@ -16,6 +16,8 @@
         <%= form.text_field :search_title, placeholder: "Seach by Task Name" %>
         <%= form.label :search_status %>
         <%= form.select :search_status, Task.statuses.keys, { include_blank: 'Please select'} %>
+        <%= form.label :search_label, "Label" %>
+        <%= form.select :search_label, Label.pluck(:name, :id), { include_blank: 'Please select' } %>
         <%= form.submit "Search", name: "search" %>
       <% end %>
     </div>
@@ -74,13 +76,13 @@
           </p>
         <div class="label_block">
           <% task.labels.each do |label| %>
-            <span><%= label.name %></span>
+            <span class="label label-success"><%= label.name %></span>
           <% end %>
         </div>
         <p class="btns">
-          <%= link_to 'Show', task_path(task.id) %>
-          <%= link_to 'Edit', edit_task_path(task.id), data: { confirm: 'Are you sure to edit?' } %>
-          <%= link_to 'Destroy', task_path(task.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Show', task_path(@task.id) %>
+          <%= link_to 'Edit', edit_task_path(@task.id), class: "edit_task" %>
+          <%= link_to 'Destroy', task_path(@task.id), method: :delete, data: { confirm: 'Are you sure?' } %>
         </p>
       </li>
     <% end %>
