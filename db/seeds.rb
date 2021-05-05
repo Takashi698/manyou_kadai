@@ -15,14 +15,17 @@ User.create!(name: name,
              admin: true
              )
 
-9.times do |n|
-  name = Faker::Games::Pokemon.name
-  email = Faker::Internet.email
-  password = "password"
-  User.create!(name: name,
-              email: email,
-              password: password,
-              password_confirmation: password,
-              admin: false
-              )
-end
+Label.create!(
+  [
+    {name: 'Zelda'},
+    {name: 'Final Fantasy'},
+    {name: 'Dragon Quest'},
+    {name: 'Splatoon'},
+    {name: 'Bullet Voyage'},
+    {name: 'Among Us'},
+    {name: 'Mini Metro'},
+    {name: 'Mario Odessay'},
+    {name: 'Mario World'},
+    {name: 'Star Ocean'}
+  ]
+)
