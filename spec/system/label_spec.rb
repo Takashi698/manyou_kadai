@@ -1,9 +1,5 @@
 require 'rails_helper'
 RSpec.describe 'ラベル登録機能', type: :system do
-  # let(:user) { FactoryBot.create(:user) }
-  # let!(:label) { FactoryBot.create(:label) }
-  # let!(:label2) { FactoryBot.create(:label2) }
-  # let!(:label3) { FactoryBot.create(:label3) }
   before do
     @user = FactoryBot.create(:user)
     visit new_session_path
@@ -18,8 +14,6 @@ RSpec.describe 'ラベル登録機能', type: :system do
     context 'タスク作成時にラベルを選択した場合' do
       it 'タスクにラベルが紐づいて表示される' do
         FactoryBot.create(:label)
-        # FactoryBot.create(:label2)
-        # FactoryBot.create(:label3)
         visit new_task_path
         fill_in "タスク名", with: "task_name"
         fill_in "内容", with: "task_content"
@@ -40,6 +34,7 @@ RSpec.describe 'ラベル登録機能', type: :system do
     context 'タスク編集時にラベルを別のものにした場合' do
       it '変更したタスクにラベルが紐づいて表示される' do
         task2 = FactoryBot.create(:task2, user_id: @user.id)
+        FactoryBot.create(:label3)
         visit edit_task_path(task2.id)
         check 'label_name3'
         uncheck 'label_name2'
