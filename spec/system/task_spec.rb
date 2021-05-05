@@ -25,7 +25,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         find("#task_expired_at_4i").find("option[value='10']").select_option
         find("#task_expired_at_5i").find("option[value='15']").select_option
         find("#task_status").find("option[value='着手']").select_option
-        click_on '登録'
+        page.accept_confirm do
+          click_on '登録する'
+        end
         expect(page).to have_content 'task_name'
         expect(page).to have_content '着手'
       end
