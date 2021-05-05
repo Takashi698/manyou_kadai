@@ -27,6 +27,14 @@
   <ul class="tasklist">
     <% @tasks.each do |task| %>
       <li>
+      <p>
+          <span class="item_name">
+            User_Name
+          </span>
+          <div class="item_name tasks-index_item_user_name" id=<%= "tasks-index_item_user_name-#{task.id}" %>>
+            <%= task.user.name %>
+          </div>
+          </p>
         <p>
           <span class="item_name">
             Task_Name
