@@ -10,20 +10,31 @@
       <%= link_to "優先順位でソートする", tasks_path(sort_priority: "true") %>
       <%= link_to "登録日が新しい順に戻す", tasks_path %>
     </p>
+
     <div class="search_box" >
-      <%= form_with(local: true, method: :get, url: tasks_path ) do |form| %>
-        <%= form.label :search_title, "Task_Name" %>
-        <%= form.text_field :search_title, placeholder: "Seach by Task Name" %>
-        <%= form.label :search_status %>
-        <%= form.select :search_status, Task.statuses.keys, { include_blank: 'Please select'} %>
-        <%= form.submit "Search", name: "search" %>
-      <% end %>
+    <%= form_with(local: true, method: :get, url: tasks_path ) do |form| %>
+      <p class="input"><%= form.label :search_title, "タスク名" %>
+      <%= form.text_field :search_title, placeholder: "タスク名で検索" %></p>
+      <p class="input"><%= form.label :search_status, "ステータス" %>
+      <%= form.select :search_status, Task.statuses.keys, { include_blank: '選択してください'} %></p>
+      <p class="input"><%= form.label :search_label, "ラベル" %>
+      <%= form.select :search_label, Label.pluck(:name, :id), { include_blank: '選択してください' } %></p>
+      <p class="input"><%= form.submit "検索", name: "search" %></p>
+    <% end %>
     </div>
   </div>
 
   <ul class="tasklist">
     <% @tasks.each do |task| %>
       <li>
+      <p>
+          <span class="item_name">
+            User_Name
+          </span>
+          <div class="item_name tasks-index_item_user_name" id=<%= "tasks-index_item_user_name-#{task.id}" %>>
+            <%= task.user.name %>
+          </div>
+          </p>
         <p>
           <span class="item_name">
             Task_Name
@@ -72,11 +83,19 @@
             <%= task.priority %>
           </div>
           </p>
+
+        <div class="label_block">
+          <% task.labels.each do |label| %>
+            <span class="label label-success"><%= label.name %></span>
+          <% end %>
+        </div>
+
         <p class="btns">
           <%= link_to 'Show', task_path(task.id) %>
-          <%= link_to 'Edit', edit_task_path(task.id), data: { confirm: 'Are you sure to edit?' } %>
+          <%= link_to 'Edit', edit_task_path(task.id), class: "edit_task" %>
           <%= link_to 'Destroy', task_path(task.id), method: :delete, data: { confirm: 'Are you sure?' } %>
         </p>
+
       </li>
     <% end %>
   </ul>
